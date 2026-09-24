@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>USTAZIQ — Мұғалімнің ақылды AI көмекшісі</title>
+<meta name="description" content="USTAZIQ — ҚМЖ, БЖБ/ТЖБ, тест, көрнекілік, тәрбие сағаты және мектеп құжаттарын AI арқылы дайындайтын мұғалім көмекшісі."/>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+<div class="app" id="app">
+<aside class="sidebar">
+  <div class="brand"><div class="logo">UQ</div><div><b>USTAZIQ</b><span>AI мұғалім көмекшісі</span></div></div>
+  <button class="new-btn" id="newTaskBtn">＋ Жаңа материал</button>
+  <nav>
+    <div class="nav-title">Құралдар</div>
+    <button class="nav-item active" data-tool="ҚМЖ / қысқа мерзімді жоспар">📘<span>ҚМЖ</span></button>
+    <button class="nav-item" data-tool="Сабақ жоспары">🗂️<span>Сабақ жоспары</span></button>
+    <button class="nav-item" data-tool="БЖБ / ТЖБ">📊<span>БЖБ / ТЖБ</span></button>
+    <button class="nav-item" data-tool="Тест / бақылау жұмысы">📝<span>Тест / бақылау</span></button>
+    <button class="nav-item" data-tool="Көрнекілік">🎨<span>Көрнекілік</span></button>
+    <button class="nav-item" data-tool="Тәрбие сағаты">🌱<span>Тәрбие сағаты</span></button>
+    <button class="nav-item" data-tool="Анықтама / есеп">📄<span>Анықтама / есеп</span></button>
+    <button class="nav-item" data-tool="Қаулы / хаттама">📋<span>Қаулы / хаттама</span></button>
+    <button class="nav-item" data-tool="Мінездеме">👤<span>Мінездеме</span></button>
+    <button class="nav-item" data-tool="Эссе / шығарма">✍️<span>Эссе / шығарма</span></button>
+    <button class="nav-item" data-tool="Мәтінді түзету / аудару">🔤<span>Түзету / аудару</span></button>
+    <button class="nav-item" data-tool="Идея / жоба">💡<span>Идея / жоба</span></button>
+  </nav>
+  <div class="side-footer"><div class="online"><i></i><div><b id="apiStatus">AI мәртебесі</b><small id="apiStatusText">тексерілуде...</small></div></div><button id="clearHistoryBtn" class="side-link">Тарихты тазалау</button></div>
+</aside>
+
+<main class="main">
+<header class="topbar">
+  <div><div class="eyebrow">Мұғалімге арналған AI workspace</div><h1 id="pageTitle">ҚМЖ / қысқа мерзімді жоспар</h1><p id="pageDesc">Бір сұраныспен дайын, қолдануға болатын оқу материалын жасаңыз.</p></div>
+  <div class="top-actions"><button class="soft-btn" id="healthBtn">● Жүйе күйі</button><button class="theme-btn" id="themeBtn">◐</button></div>
+</header>
+
+<section class="hero-card"><div><span class="pill">USTAZIQ AI</span><h2>Уақытыңызды сабаққа қалдырыңыз.</h2><p>Тақырыпты жазыңыз — USTAZIQ құрылымын өзі құрып, дайын материал шығарады.</p></div><div class="hero-illustration"><div class="orbit o1"></div><div class="orbit o2"></div><div class="hero-bot">UQ</div></div></section>
+
+<section class="workspace">
+<div class="card form-card">
+  <div class="card-head"><div><h2>Материал құрастыру</h2><span>Маңызды өрістерді толтырсаңыз жеткілікті.</span></div><button class="tiny-btn" id="resetBtn">Қалпына келтіру</button></div>
+  <div class="chips" id="quickChips"><button data-preset="3-сынып|Қазақ тілі">3-сынып · Қазақ тілі</button><button data-preset="4-сынып|Математика">4-сынып · Математика</button><button data-preset="5-сынып|Жаратылыстану">5-сынып · Жаратылыстану</button><button data-preset="8-сынып|Информатика">8-сынып · Информатика</button></div>
+  <div class="grid2"><label>Пән<input id="subject" placeholder="Мысалы: Қазақ тілі"/></label><label>Сынып<input id="grade" placeholder="Мысалы: 3-сынып"/></label></div>
+  <div class="grid3"><label>Ұзақтығы<select id="duration"><option>40 минут</option><option>45 минут</option><option>30 минут</option><option>60 минут</option><option>Көрсетілмесін</option></select></label><label>Тіл<select id="language"><option>Қазақша</option><option>Русский</option><option>English</option></select></label><label>Формат<select id="format"><option>Толық нұсқа</option><option>Кесте</option><option>Ресми құжат</option><option>Оқушыға арналған</option><option>Қысқа нұсқа</option></select></label></div>
+  <label>Тақырып немесе нақты тапсырма<textarea id="topic" rows="6" placeholder="Мысалы: 3-сыныпқа «Сын есім» тақырыбына ҚМЖ жаса. Жұптық жұмыс, жеке жұмыс, бағалау критерийі, дескриптор және рефлексия болсын."></textarea></label>
+  <label>Қосымша талаптар<textarea id="requirements" rows="3" placeholder="Мысалы: саралау, қауіпсіздік ережесі, үй тапсырмасы, ресурстар қоссын."></textarea></label>
+  <div class="file-row"><label class="file-box">📎 Бастапқы материал<input id="sourceFile" type="file" accept=".txt,.md,.csv"/></label><span id="fileName">Файл таңдалмады</span></div>
+  <textarea id="sourceText" class="hidden"></textarea>
+  <button class="generate" id="generateBtn"><span>✨</span><b>AI арқылы жасау</b><kbd>Ctrl ↵</kbd></button>
+  <div class="disclaimer">AI жасаған материалды мектеп талаптары мен оқу бағдарламасына сәйкестігін тексеріп қолданыңыз.</div>
+</div>
+
+<div class="card result-card">
+  <div class="card-head result-head"><div><h2>Дайын нәтиже</h2><span id="resultMeta">Нәтиже осы жерде пайда болады.</span></div><div class="result-actions"><button id="copyBtn" disabled>Көшіру</button><button id="downloadBtn" disabled>TXT</button><button id="printBtn" disabled>Басып шығару</button></div></div>
+  <div id="result" class="result empty"><div class="empty-glyph">✦</div><h3>Материал күтілуде</h3><p>Сол жақтағы өрістерді толтырып, AI арқылы жасау батырмасын басыңыз.</p></div>
+</div>
+</section>
+
+<section class="bottom-grid">
+<div class="card history-card"><div class="card-head"><div><h2>Соңғы материалдар</h2><span>Осы браузерде сақталады.</span></div><button class="tiny-btn" id="refreshHistoryBtn">Жаңарту</button></div><div id="history" class="history"></div></div>
+<div class="card chat-card"><div class="card-head"><div><h2>Еркін AI чат</h2><span>Кез келген педагогикалық сұрақты қойыңыз.</span></div></div><div id="chatMessages" class="chat-messages"><div class="bubble assistant">Сәлем! Мен USTAZIQ. Сабақ, жоспар, тапсырма немесе құжат туралы сұраңыз.</div></div><div class="chat-row"><textarea id="chatInput" rows="2" placeholder="Мысалы: 3-сыныпқа қызықты рефлексияның 5 түрін бер..."></textarea><button class="generate" id="sendChatBtn">Жіберу</button></div></div>
+</section>
+</main></div>
+<div id="toast" class="toast"></div>
+<script src="app.js"></script>
+</body></html>
